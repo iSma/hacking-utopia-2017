@@ -1,8 +1,10 @@
-var baseUrl = "https://hack.lct.ee/";
+const baseUrl = "https://hack.lct.ee/";
 
 // set up Leaflet (for <div id="map"></div>)
-var mymap = L.map('mymap').setView([90.0, 0.0], 20);
-var leafletOptions = {
+const map = L.map('mymap').setView([0, 0], 20);
+const group = new L.FeatureGroup().addTo(map);
+
+const options = {
   tms: true,        // tiled map service, required
   noWrap: true,
   attribution: '',
@@ -10,7 +12,7 @@ var leafletOptions = {
   maxZoom: 25
 };
 
-var floors = [{
+const floors = [{
   "building": {
     "id": 6
   },
@@ -139,18 +141,30 @@ var floors = [{
   "name": "EG 0"
 }]
 
-var foo = document.getElementById("floors");
-floors.forEach(function(floor) {
-  var btn = document.createElement("BUTTON");
-  var t = document.createTextNode(floor.name);
+const foo = document.getElementById("floors");
+floors.forEach((floor) => {
+  const btn = document.createElement("button");
+  const t = document.createTextNode(floor.name);
   btn.appendChild(t);
-  btn.onclick = function() {
-    L.tileLayer(baseUrl + floor.floorPlans[0].tileLayerUrl, leafletOptions).addTo(mymap);
-
-    // zoom floor into view
-    var geoJson = L.geoJSON(JSON.parse(floor.geoJson));
-    mymap.fitBounds(geoJson.getBounds());
-  };
   //Append the element in page (in span).
   foo.appendChild(btn);
+
+  btn.onclick = () => {
+    group.clearLayers();
+    const tile = L.tileLayer(baseUrl + floor.floorPlans[0].tileLayerUrl, options);
+    group.addLayer(tile);
+
+    let geoJson = JSON.parse(floor.geoJson);
+
+    geoJson = L.geoJSON(geoJson, {
+      style: {
+        "color": "#ff7800",
+        "weight": 5,
+        "opacity": 0.65
+      }
+    });
+
+    group.addLayer(geoJson);
+    map.fitBounds(geoJson.getBounds());
+  };
 });
