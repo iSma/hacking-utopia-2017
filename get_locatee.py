@@ -29,10 +29,24 @@ def fetch(username, password):
             data = session.get(url)
             data = json.loads(data.text)
             data = data['stats']
+
+            url = (URL + "/api/v1/stats?" +
+                   "fn=count&of=desks" +
+                   "&locationFilter.floor={id}" +
+                   "&locationFilter.attribute.zone={zone}" +
+                   "&timeFilter.at=2017-01-01T00:00:00")
+
+            url = url.format(id=f['id'], zone=zone)
+            cap = session.get(url)
+            cap = json.loads(cap.text)
+            cap = cap['stats']
+            cap = cap[0]['value'] if cap else 0
+
             all += [{'time': d['dateTime'],
                      'zone': zone,
                      'occupancy': d['value'],
-                     'floor': f['level']}
+                     'floor': f['level'],
+                     'capacity': cap}
                     for d in data]
 
     return all
@@ -49,6 +63,6 @@ if __name__ == '__main__':
     data = fetch(username, password)
     data = pd.DataFrame(data)
     data = data.sort_values(by='time')
-    data = data[['time', 'floor', 'zone', 'occupancy']]
+    data = data[['time', 'floor', 'zone', 'occupancy', 'capacity']]
 
     data.to_csv(path, index=False)
