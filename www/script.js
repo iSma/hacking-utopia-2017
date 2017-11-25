@@ -229,12 +229,12 @@ function myFunction() {
     map.fitBounds(geoJson.getBounds());
 }
 
-function onColor() {
+function updateTimeStamp() {
   var floorId = document.getElementById("floorSel").value;
   let floor = floors.filter(floor => floor.id == floorId)[0];
 
   let color;
-  let timestamp = Object.keys(occupancy)[0];
+  let timestamp = updateTime();
   console.log(occupancy[timestamp][floorId]);
   locations = occupancy[timestamp][floorId];
   Object.keys(locations).forEach(key => {
@@ -261,8 +261,4 @@ function updateTime(){
 
   label.innerHTML = time + ":00";
   return unixTime;
-}
-
-function updateTimeStamp(){
-  alert(updateTime());
 }
