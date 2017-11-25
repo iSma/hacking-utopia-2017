@@ -247,3 +247,22 @@ function onColor() {
     polygons[key].bindPopup("exp. occupancy: "+Math.round(value*100)+"%")
   });
 }
+
+function updateTime(){
+  label = document.getElementById("hourLabel");
+  date = document.getElementById("dateInput").value;
+  time = document.getElementById("timeInput").value;
+  if(time < 10){
+      time = "0" + time;
+  }
+  datetime = date + "T" + time + ":00:00";
+  d = new Date(datetime)
+  unixTime = d.getTime()/1000;
+
+  label.innerHTML = time + ":00";
+  return unixTime;
+}
+
+function updateTimeStamp(){
+  alert(updateTime());
+}
