@@ -15,14 +15,18 @@
 </div>
 <article>
     <div id="mymap"></div>
+    <div>
     <label for="floorSel">Floor</label>
     <select id="floorSel" onchange="myFunction()">
     </select>
+</div>
+<div>
     <label for="dateInput">Date</label>
     <input id="dateInput" type="date" onInput="updateTime()" onchange="updateTimeStamp()">
     <label for="timeInput">Time</label>
     <input id="timeInput" type="range" min="0" max="23" onInput="updateTime()" onchange="updateTimeStamp()">
     <label id="hourLabel">test</label>
+</div>
 </article>
 </div>
 <script src="script.js"></script>
