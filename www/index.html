@@ -26,9 +26,14 @@
     <select id="floorSel" onchange="myFunction()">
     </select>
     <label for="dateInput">Date</label>
-    <input id="dateInput" type="date">
+    <input id="dateInput" type="date" onInput="updateTime()" onchange="updateTimeStamp()">
     <label for="timeInput">Time</label>
-    <input id="timeInput" type="range" min="0" max="23">
-    <input id="color" type="range" min="0" max="10" onchange='onColor()'>
+    <input id="timeInput" type="range" min="0" max="23" onInput="updateTime()" onchange="updateTimeStamp()">
+    <label id="hourLabel">test</label>
 </article>
 <script src="script.js"></script>
+<script>myFunction();</script>
+<script>
+  document.getElementById("dateInput").valueAsDate = new Date();
+  updateTime();
+</script>
