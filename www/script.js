@@ -230,17 +230,20 @@ function myFunction() {
 }
 
 function onColor() {
-  var color = document.getElementById("color").value;
-  if (color < 2.5) {
-    polygons[1].setStyle({color: 'green'});
-  }
-  else if (color >= 2.5 && color < 5) {
-    polygons[1].setStyle({color: 'yellow'});
-  }
-  else if (color >= 5 && color < 7.5) {
-    polygons[1].setStyle({color: 'orange'});
-  }
-  else {
-    polygons[1].setStyle({color: 'red'});
-  }
+  var floorId = document.getElementById("floorSel").value;
+  let floor = floors.filter(floor => floor.id == floorId)[0];
+
+  let color;
+  let timestamp = Object.keys(occupancy)[0];
+  console.log(occupancy[timestamp][floorId]);
+  locations = occupancy[timestamp][floorId];
+  Object.keys(locations).forEach(key => {
+    let value = locations[key]
+    if (value < 0.25) color = 'green';
+    else if (value >= 0.25 && value < 0.5) color = 'yellow';
+    else if (value >= 0.5 && value < 0.75) color = 'orange';
+    else color = 'red';
+    polygons[key].setStyle({color: color})
+    polygons[key].bindPopup("exp. occupancy: "+Math.round(value*100)+"%")
+  });
 }
