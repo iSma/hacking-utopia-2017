@@ -2,11 +2,12 @@ body { text-align: center; padding: 150px;
 }
 h1 { font-size: 50px; }
 body { font: 20px Helvetica, sans-serif; color: #333; background-color:#ffcc00;}
-article { display: block; text-align: left; width: 650px; margin: 0 auto; }
+article { display: inline-block; text-align: left; background-color: white;}
 a { color: #dc8100; text-decoration: none; }
 a:hover { color: #333; text-decoration: none; }
 #mymap { height: 360px; }
 .frame{
 	background-color: #ebe4d1;
 	background-size: 100% auto;
+  max-width: 800px;
 }
