@@ -22,6 +22,12 @@
         <p>&mdash; The Team</p>
     </div>
     <div id="mymap"></div>
-    <div id="floors"></div>
+    <label for="floorSel">Floor</label>
+    <select id="floorSel" onchange="myFunction()">
+    </select>
+    <label for="dateInput">Date</label>
+    <input id="dateInput" type="date">
+    <label for="timeInput">Time</label>
+    <input id="timeInput" type="range" name="points" min="0" max="23">
 </article>
 <script src="script.js"></script>

@@ -141,15 +141,18 @@ const floors = [{
   "name": "EG 0"
 }]
 
-const foo = document.getElementById("floors");
 floors.forEach((floor) => {
-  const btn = document.createElement("button");
-  const t = document.createTextNode(floor.name);
-  btn.appendChild(t);
-  //Append the element in page (in span).
-  foo.appendChild(btn);
+  var sel = document.getElementById("floorSel");
+  var option = document.createElement("option");
+  option.value = floor.id
+  option.text = floor.name;
+  sel.add(option);
+})
 
-  btn.onclick = () => {
+function myFunction() {
+    var floorSel = document.getElementById("floorSel")
+    var floorId = document.getElementById("floorSel").value;
+    let floor = floors.filter(floor => floor.id == floorId)[0];
     group.clearLayers();
     const tile = L.tileLayer(baseUrl + floor.floorPlans[0].tileLayerUrl, options);
     group.addLayer(tile);
@@ -164,7 +167,64 @@ floors.forEach((floor) => {
       }
     });
 
-    group.addLayer(geoJson);
+    //group.addLayer(geoJson);
+    let polygon100 = L.polygon([
+      [-0.0002255528307, 0.0000617957182],
+      [-0.0002255528307, 0.0002191884127],
+      [-0.00006877488613, 0.0002191884127],
+      [-0.00006877488613, 0.0000617957182],
+    ]).bindPopup("I am 100.");
+    let polygon200 = L.polygon([
+      [-0.0002255528307, 0.0002617957182],
+      [-0.0002255528307, 0.0005191884127],
+      [-0.00006877488613, 0.0005191884127],
+      [-0.00006877488613, 0.0002617957182],
+    ]).bindPopup("I am 200.");
+    let polygon300 = L.polygon([
+      [-0.0002255528307, 0.0005617957182],
+      [-0.0002255528307, 0.0008191884127],
+      [-0.00006877488613, 0.0008191884127],
+      [-0.00006877488613, 0.0005617957182],
+    ]).bindPopup("I am 300.");
+    let polygon400 = L.polygon([
+      [-0.0002255528307, 0.0008617957182],
+      [-0.0002255528307, 0.001219188413],
+      [-0.00006877488613, 0.001219188413],
+      [-0.00006877488613, 0.0008617957182],
+    ]).bindPopup("I am 400.");
+    let polygon800 = L.polygon([
+      [-0.0004105528307, 0.0000617957182],
+      [-0.0004105528307, 0.0004191884127],
+      [-0.0002287748861, 0.0004191884127],
+      [-0.0002287748861, 0.0000617957182],
+    ]).bindPopup("I am 800.");
+    let polygon700 = L.polygon([
+      [-0.0004105528307, 0.0004617957182],
+      [-0.0004105528307, 0.0006991884127],
+      [-0.0002287748861, 0.0006991884127],
+      [-0.0002287748861, 0.0004617957182],
+    ]).bindPopup("I am 700.");
+    let polygon600 = L.polygon([
+      [-0.0004105528307, 0.0007617957182],
+      [-0.0004105528307, 0.0009991884127],
+      [-0.0002287748861, 0.0009991884127],
+      [-0.0002287748861, 0.0007617957182],
+    ]).bindPopup("I am 600.");
+    let polygon500 = L.polygon([
+      [-0.0004105528307, 0.001061795718],
+      [-0.0004105528307, 0.001199188413],
+      [-0.0002287748861, 0.001199188413],
+      [-0.0002287748861, 0.001061795718],
+    ]).bindPopup("I am 500.");
+
+    group.addLayer(polygon100);
+    group.addLayer(polygon200);
+    group.addLayer(polygon300);
+    group.addLayer(polygon400);
+    group.addLayer(polygon500);
+    group.addLayer(polygon600);
+    group.addLayer(polygon700);
+    group.addLayer(polygon800);
+
     map.fitBounds(geoJson.getBounds());
-  };
-});
+}
