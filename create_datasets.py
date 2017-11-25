@@ -24,4 +24,5 @@ wd.drop(del_columns, 1, inplace=True)
 # merge datasets
 df = od.merge(wd, how='left', left_on='time', right_on='time', left_index=True)
 df.reset_index(inplace=True)
+df.drop('index', 1, inplace=True)
 df['class'] = (df.occupancy * N_CLASSES).round().astype('int')
