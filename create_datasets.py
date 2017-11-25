@@ -26,3 +26,7 @@ df = od.merge(wd, how='left', left_on='time', right_on='time', left_index=True)
 df.reset_index(inplace=True)
 df['class'] = (df.occupancy * N_CLASSES).round().astype('int')
 df.dropna(inplace=True)
+
+# add holidays data
+h = pd.read_csv("holidaysBern.csv", parse_dates=[0],header=None)[0]
+df["holidays"] = df.time.dt.date.isin(h.dt.date)
